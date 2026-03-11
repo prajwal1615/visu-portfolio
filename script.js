@@ -6,17 +6,17 @@
   'use strict';
 
   /* ── DOM References ── */
-  const html          = document.documentElement;
-  const themeToggle   = document.getElementById('theme-toggle');
-  const navbar        = document.getElementById('navbar');
-  const navLinks      = document.querySelectorAll('.nav-link');
-  const hamburger     = document.getElementById('hamburger');
-  const navLinksList  = document.getElementById('nav-links');
-  const backToTop     = document.getElementById('back-to-top');
-  const contactForm   = document.getElementById('contact-form');
-  const formSuccess   = document.getElementById('form-success');
-  const skillFills    = document.querySelectorAll('.skill-bar-fill');
-  const animateEls    = document.querySelectorAll('[data-animate]');
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const navbar = document.getElementById('navbar');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const hamburger = document.getElementById('hamburger');
+  const navLinksList = document.getElementById('nav-links');
+  const backToTop = document.getElementById('back-to-top');
+  const contactForm = document.getElementById('contact-form');
+  const formSuccess = document.getElementById('form-success');
+  const skillFills = document.querySelectorAll('.skill-bar-fill');
+  const animateEls = document.querySelectorAll('[data-animate]');
 
   /* ─────────────────────────────────────────
      1. THEME (Dark / Light Toggle)
@@ -27,7 +27,7 @@
 
   themeToggle.addEventListener('click', () => {
     const current = html.getAttribute('data-theme');
-    const next    = current === 'dark' ? 'light' : 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('portfolio-theme', next);
 
@@ -167,8 +167,8 @@
       const btnText = btn.querySelector('.btn-text');
 
       // Validate basic fields
-      const name    = document.getElementById('name').value.trim();
-      const email   = document.getElementById('email').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
 
       if (!name || !email || !message) {
@@ -295,19 +295,19 @@
           const txt = el.textContent;
           const num = parseFloat(txt);
           el.innerHTML = '0<sup>th</sup>';
-          animateCounter({ set textContent(v){ el.innerHTML = Math.floor(v) + '<sup>th</sup>'; } }, 4, 'th', false);
+          animateCounter({ set textContent(v) { el.innerHTML = Math.floor(v) + '<sup>th</sup>'; } }, 4, 'th', false);
         }
         // projects (6+)
         if (statNums[1]) {
           const el = statNums[1];
           el.innerHTML = '0';
-          animateCounter({ set textContent(v){ el.innerHTML = Math.floor(v) + '+'; } }, 6, '+', false);
+          animateCounter({ set textContent(v) { el.innerHTML = Math.floor(v) + '+'; } }, 6, '+', false);
         }
         // SGPA (8.4)
         if (statNums[2]) {
           const el = statNums[2];
           el.textContent = '0.0';
-          animateCounter({ set textContent(v){ el.textContent = v; } }, 8.4, '', true);
+          animateCounter({ set textContent(v) { el.textContent = v; } }, 8.79, '', true);
         }
         statsObserver.disconnect();
       }
