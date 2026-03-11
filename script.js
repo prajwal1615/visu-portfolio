@@ -146,7 +146,10 @@
   ───────────────────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      // Skip bare "#" links (social buttons, placeholders) — querySelector('#') is invalid
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         const offset = 68; // navbar height
@@ -157,7 +160,7 @@
   });
 
   /* ─────────────────────────────────────────
-     8. CONTACT FORM — Simulation
+     8. CONTACT FORM — Formspree Integration
   ───────────────────────────────────────── */
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -166,7 +169,7 @@
       const btn = document.getElementById('send-btn');
       const btnText = btn.querySelector('.btn-text');
 
-      // Validate basic fields
+      // Validate required fields
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
@@ -180,13 +183,40 @@
       btn.disabled = true;
       btnText.textContent = 'Sending…';
 
-      setTimeout(() => {
-        btn.disabled = false;
-        btnText.textContent = 'Send Message';
-        formSuccess.classList.add('show');
-        contactForm.reset();
-        setTimeout(() => formSuccess.classList.remove('show'), 5000);
-      }, 1800);
+      // ── Real submission to Formspree ──
+      const formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (response) {
+          btn.disabled = false;
+          btnText.textContent = 'Send Message';
+
+          if (response.ok) {
+            // ✅ Success — message delivered to Vishwanath's email
+            formSuccess.textContent = '✅ Message sent! Vishwanath will get back to you soon.';
+            formSuccess.style.cssText = 'background:rgba(0,229,196,0.1);border-color:rgba(0,229,196,0.3);color:var(--accent-2);';
+            formSuccess.classList.add('show');
+            contactForm.reset();
+          } else {
+            // ❌ Formspree returned an error
+            formSuccess.textContent = '❌ Could not send. Please email directly: vishwanathalaladinni@gmail.com';
+            formSuccess.style.cssText = 'background:rgba(255,85,85,0.1);border-color:rgba(255,85,85,0.3);color:#ff5555;';
+            formSuccess.classList.add('show');
+          }
+          setTimeout(function () { formSuccess.classList.remove('show'); }, 6000);
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btnText.textContent = 'Send Message';
+          formSuccess.textContent = '❌ Network error. Please check your connection and try again.';
+          formSuccess.style.cssText = 'background:rgba(255,85,85,0.1);border-color:rgba(255,85,85,0.3);color:#ff5555;';
+          formSuccess.classList.add('show');
+          setTimeout(function () { formSuccess.classList.remove('show'); }, 6000);
+        });
     });
   }
 
