@@ -331,7 +331,7 @@
         if (statNums[1]) {
           const el = statNums[1];
           el.innerHTML = '0';
-          animateCounter({ set textContent(v) { el.innerHTML = Math.floor(v) + '+'; } }, 6, '+', false);
+          animateCounter({ set textContent(v) { el.innerHTML = Math.floor(v) + '+'; } }, 3, '+', false);
         }
         // SGPA (8.4)
         if (statNums[2]) {

@@ -119,7 +119,22 @@ img { max-width: 100%; display: block; }
   font-size: .8rem; font-weight: 800; color: #fff;
   letter-spacing: 0;
 }
-.logo-text { color: var(--text-primary); }
+.logo-text { 
+  color: var(--text-primary); 
+  display: flex; 
+  align-items: center; 
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.logo-v {
+  font-size: 1.8em;
+  color: var(--text-muted);
+  line-height: 0.8;
+  margin-right: 2px;
+  transform: translateY(-2px);
+}
 .logo-accent { color: var(--accent-1); }
 
 .nav-links {
